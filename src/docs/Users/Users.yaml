@@ -1,0 +1,116 @@
+paths:
+  /api/users:
+    get:
+      summary: Obtiene todos los usuarios registrados
+      tags:
+        - Users
+      responses:
+        "200":
+          description: Se obtuvieron correctamente los usuarios de la base de datos
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: String
+                    example: success
+                  payload:
+                    type: array
+                    items:
+                      $ref: '#components/schemas/User'
+  /api/users/{uid}:
+    get:
+      summary: Obtiene un usuario según su identificador único
+      tags:
+        - Users
+      parameters:
+      - name: uid
+        in: path
+        required: true
+        description: ID del usuario a realizar la consulta
+        schema:
+          $type: String
+      responses:
+        "200":
+          description: Se obtuvo correctamente el registro del usuario de la base de datos
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: String
+                    example: success
+                  payload:
+                    $ref: '#components/schemas/User'
+    put:
+      summary: Actualiza los datos del usuario según su identificador único
+      tags:
+        - Users
+      parameters:
+      - name: uid
+        in: path
+        required: true
+        description: ID del usuario a realizar la consulta
+        schema:
+          $type: String
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/requestBodies/updateUser'
+      responses:
+        "200":
+          description: Se confirma la actualización de los datos del usuario especificado en la base de datos
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: String
+                    example: success
+                  message:
+                    type: String
+                    example: User updated
+        "404":
+          description: Si no se envía campo 'uid' se envia una respuesta de que no se encontro el usuario a actualizar
+          content:
+            text/html:
+              schema:
+                type: string
+                example: <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Error</title></head><body><pre>Cannot PUT /api/users</pre></body></html>
+    delete:
+      summary: Elimina el registro del usuario según su identificador único
+      tags:
+        - Users
+      parameters:
+      - name: uid
+        in: path
+        required: true
+        description: ID del usuario a realizar la consulta
+        schema:
+          $type: String
+      responses:
+        "200":
+          description: Se confirma la eliminación del usuario de la base de datos
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status: 
+                    type: String
+                    example: success
+                  message: 
+                    type: String
+                    example: User deleted
+        "404":
+          description: Si no se envía campo 'uid' se envia una respuesta de que no se encontro el usuario a eliminar
+          content:
+            text/html:
+              schema:
+                type: string
+                example: <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Error</title></head><body><pre>Cannot DELETE /api/users</pre></body></html>

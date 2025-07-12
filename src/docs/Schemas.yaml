@@ -1,0 +1,175 @@
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: ID autogenerado por mongoDB
+        first_name:
+          type: string
+          description: Nombre del usuario
+        last_name:
+          type: string
+          description: Apellido del usuario
+        email:
+          type: string
+          description: Correo del usuario, este campo es único
+        password:
+          type: string
+          description: Contraseña encriptada del usuario
+        role:
+          type: string
+          description: Rol asignado al usuario con el cual se definen los permisos sobre la aplicación. Valor por defecto 'user'
+        pets:
+          type: Array
+          description: Campo que contiene los identificadores de las mascotas adoptadas por el usuario. Por defecto está vacio.
+      example:
+        _id: "68411ff00f6bdaafeff5311f"
+        first_name: "Micaela"
+        last_name: "Zambrano de Águilar"
+        email: "Micaela.ZambranodeAguilar74@corpfolder.com"
+        password: "$2b$10$5KHyZ4pG0KWf1XfIOUNwhe4tBYVMpt4YWgdSexdiQl525JZat1.tS"
+        role: "user"
+        pets: []
+    Pet:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: ID autogenerado por mongoDB
+        name:
+          type: string
+          description: Nombre de la mascota
+        specie:
+          type: string
+          description: Especie de la mascota
+        birthDate:
+          type: Date
+          description: Fecha de nacimiento de la mascota
+        adopted:
+          type: Boolean
+          default: false
+          description: Campo que indica si la mascota esta adoptada por un usuario o no
+        owner:
+          type: ObjectId
+          description: ID del usuario que adopto esta mascota, puede ser vacío en caso de no ser adoptada aún.
+        image: 
+          type: string
+          description: URL que contiene la foto de la mascota
+      example:
+        _id: 6871c5b791da6369a1f0182b
+        name: Max
+        specie: Serbian Hound
+        birthDate: 2017-11-13T09:31:23.957Z
+        adopted: false
+        image: https://loremflickr.com/1111/434/pets?lock=2836045357585715
+    MockPet:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Nombre de la mascota
+        specie:
+          type: string
+          description: Especie de la mascota
+        birthDate:
+          type: Date
+          description: Fecha de nacimiento de la mascota
+        adopted:
+          type: Boolean
+          default: false
+          description: Campo que indica si la mascota esta adoptada por un usuario o no
+        owner:
+          type: ObjectId
+          description: ID del usuario que adopto esta mascota, puede ser vacío en caso de no ser adoptada aún.
+        image: 
+          type: string
+          description: URL que contiene la foto de la mascota
+      example:
+        name: Max
+        specie: Serbian Hound
+        birthDate: 2017-11-13T09:31:23.957Z
+        adopted: false
+        image: https://loremflickr.com/1111/434/pets?lock=2836045357585715
+    MockUser:
+      type: object
+      properties:
+        first_name:
+          type: string
+          description: Nombre del usuario
+        last_name:
+          type: string
+          description: Apellido del usuario
+        email:
+          type: string
+          description: Correo del usuario, este campo es único
+        password:
+          type: string
+          description: Contraseña encriptada del usuario
+        role:
+          type: string
+          description: Rol asignado al usuario con el cual se definen los permisos sobre la aplicación. Valor por defecto 'user'
+        pets:
+          type: Array
+          description: Campo que contiene los identificadores de las mascotas adoptadas por el usuario. Por defecto está vacio.
+      example:
+        first_name: "Micaela"
+        last_name: "Zambrano de Águilar"
+        email: "Micaela.ZambranodeAguilar74@corpfolder.com"
+        password: "$2b$10$5KHyZ4pG0KWf1XfIOUNwhe4tBYVMpt4YWgdSexdiQl525JZat1.tS"
+        role: "user"
+        pets: []
+    Adoption:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: ID de la adopción
+        pet:
+          $ref: '#/components/schemas/Pet'
+        owner:
+          type: string
+          description: ID del usuario que adoptó la mascota
+      example:
+        _id: 617c1f8a6f59b64c7a4a6a29
+        pet:
+          _id: 6871c5b791da6369a1f0182b
+          name: Max
+          specie: Serbian Hound
+          birthDate: 2017-11-13T09:31:23.957Z
+          adopted: true
+          owner: 617c1a5d6f59b64c7a4a6a11
+          image: https://loremflickr.com/1111/434/pets?lock=2836045357585715
+        owner: 617c1a5d6f59b64c7a4a6a11
+  requestBodies:
+    updateUser:
+      type: object
+      properties:
+        first_name:
+          type: string
+          description: Nombre del usuario
+        last_name:
+          type: string
+          description: Apellido del usuario
+        email:
+          type: string
+          description: Correo del usuario, este campo es único
+        password:
+          type: string
+          description: Contraseña encriptada del usuario
+        role:
+          type: string
+          description: Rol asignado al usuario con el cual se definen los permisos sobre la aplicación. Valor por defecto 'user'
+        pets:
+          type: array
+          items:
+            type: object
+          description: Campo que contiene los identificadores de las mascotas adoptadas por el usuario. Por defecto está vacio.
+      example:
+        first_name: Micaela
+        last_name: Zambrano de Águilar
+        email: Micaela.ZambranodeAguilar74@corpfolder.com
+        password: $2b$10$5KHyZ4pG0KWf1XfIOUNwhe4tBYVMpt4YWgdSexdiQl525JZat1.tS
+        role: user
+        pets: [ { _id: "6871c5b791da6369a1f0182b"} ]

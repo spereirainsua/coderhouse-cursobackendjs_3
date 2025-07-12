@@ -66,7 +66,6 @@ const generateData = async (req, res, next) => {
                 TIPOS_ERROR.ARGUMENTOS_INVALIDOS
             )
         } else if (users) {
-            // console.log("Genero usuarios")
             const userInst = new Users()
             for (let i = 0; i < users; i++) {
                 const response = await userInst.save(generateUser())
@@ -82,7 +81,6 @@ const generateData = async (req, res, next) => {
                 TIPOS_ERROR.ARGUMENTOS_INVALIDOS
             )
         } else if (pets) {
-            // console.log("Genero pets")
             const petInst = new Pet()
             for (let i = 0; i < pets; i++) {
                 const response = await petInst.save(generatePet())

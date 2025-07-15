@@ -12,6 +12,7 @@ Incluye soporte para autenticación, manejo de usuarios, mascotas y adopciones, 
 
 ## 📁 Estructura del Proyecto
 
+```plaintext
 src/
 ├── app.js # Configuración principal de la app
 ├── controllers/ # Lógica de controladores para cada recurso
@@ -24,7 +25,7 @@ src/
 ├── utils/ # Utilidades varias (logger, helpers, etc.)
 ├── docs/ # Documentación Swagger (YAML)
 ├── logs/ # Archivos de logs
-
+```
 ## 🛠️ Instalación
 
 ```bash
